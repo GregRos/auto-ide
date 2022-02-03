@@ -1,37 +1,20 @@
 import argparse
+from loguru import logger
+
 import sys
 from os import chdir
 from os.path import dirname
+from config import manager
 
-from ides.jb import JbIde
-from ides.vscode import VsCodeIde
-from ides.picker import IdePicker
-
-ides = IdePicker([
-    JbIde({
-        'WEB_MODULE': r'C:\Program Files\JetBrains\PhpStorm*\bin\phpstorm64.exe',
-        'PYTHON_MODULE': r'C:\Program Files\JetBrains\PyCharm*\bin\pycharm64.exe',
-        'CPP_MODULE': r'C:\Program Files\JetBrains\CLion*\bin\clion64.exe'
-    }),
-    VsCodeIde(r'C:\Users\GregRosenbaum\AppData\Local\Programs\Microsoft VS Code\Code.exe')
-])
-
-root_parser = argparse.ArgumentParser(description='spotify automation script')
+root_parser = argparse.ArgumentParser(description='The automatic IDE picker')
 root_parser.add_argument("path", type=str)
 chdir(dirname(__file__))
 
 if __name__ == '__main__':
-    path = root_parser.parse_args().path
-    ide = ides.get_ide(path)
-    if not ide:
-        print(f'AutoIDE - IDE not found for path "{path}".', file=sys.stderr)
-        exit(1)
-
-    try:
-        ide.exec()
-    except Exception as e:
-        print(f'AutoIDE Error - {e.args}')
-
-
-
-
+    args = root_parser.parse_args()
+    logger.info("Received request to open {dir}", dir=args.path)
+    launcher = manager.get_ide(args.path)
+    if not launcher:
+        logger.error("A launcher for this project wasn't found!")
+    launcher.launch()
+    logger.info("Done!")
