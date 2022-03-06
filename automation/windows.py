@@ -7,14 +7,12 @@ import win32gui
 import win32process
 from loguru import logger
 
-
 def get_processes_by_path(pth: str) -> Iterable[psutil.Process | None]:
     for proc in psutil.process_iter():
         if proc.pid > 0 and pth in proc.exe():
             yield proc
     logger.warning("No process found for {path}!", path=pth)
     return None
-
 
 def find_window(exe: str, res_title=None) -> int | None:
     if res_title is None:

@@ -8,7 +8,6 @@ from config import manager
 
 root_parser = argparse.ArgumentParser(description='The automatic IDE picker')
 root_parser.add_argument("path", type=str)
-chdir(dirname(__file__))
 
 if __name__ == '__main__':
     args = root_parser.parse_args()
