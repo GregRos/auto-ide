@@ -8,7 +8,7 @@ from ides.vscode import Manager as VsCode
 _jb = JbManager([
     JbBin(
         key='web',
-        exe=r'C:\Program Files\JetBrains\PhpStorm*\bin\phpstorm64.exe',
+        exe=r'/home/gr/grwsl/apps/phpstorm',
         globs=[
             "node_modules",
             "package.json",
@@ -16,33 +16,21 @@ _jb = JbManager([
             "tsconfig.json",
             "bitbucket-pipelines.yml"
         ],
-        default_score=1
+        default_score=1.01
     ),
     JbBin(
         key='python',
-        exe=r'C:\Program Files\JetBrains\PyCharm*\bin\pycharm64.exe',
+        exe=r'/home/gr/grwsl/apps/pycharm',
         globs=[
             "*.py"
         ],
         default_score=2
-    ),
-    JbBin(
-        key='cpp',
-        exe=r'C:\Program Files\JetBrains\CLion*\bin\clion64.exe',
-        globs=[
-            "Makefile",
-            "*clang*",
-            "*.v8",
-            "*.c",
-            "*.cpp"
-        ],
-        default_score=3
     )
 ])
 
 _vscode = VsCode(
-    r'C:\Users\GregRosenbaum\AppData\Local\Programs\Microsoft VS Code\Code.exe',
-    0
+    r'/usr/bin/code',
+    1
 )
 
 manager = SuperManager(

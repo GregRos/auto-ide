@@ -42,7 +42,7 @@ class SuperManager:
                 ide.open_existing(path) for ide in self._ides
             ] if launcher
         ]
-        print(launchers)
+        print(",".join(["=".join([l.name, str(l.score)]) for l in launchers]))
         if len(launchers) > 0:
             # return the best IDE by score
             highest = max(launchers, key=lambda x: x.score)

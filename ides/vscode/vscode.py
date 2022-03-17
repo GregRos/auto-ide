@@ -48,7 +48,7 @@ class Manager(IdeManager):
         logger.debug('Trying to open existing: "{path}"', path=path)
         test_path = f'{path}/.vscode'
         if fsutil.exists(test_path):
-            return Launcher(self.location, path, score_by_atime(path))
+            return Launcher(self.location, path, score_by_atime(path) * self.default_score)
 
     def open_new(self, path: str):
         logger.debug("Trying to open new: {path}", path=path)

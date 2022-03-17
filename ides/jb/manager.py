@@ -40,7 +40,7 @@ class Manager(IdeManager):
             launcher = Launcher(
                 path=path,
                 exe=right_bin.exe,
-                score=project.get_access_time()
+                score=project.get_access_time() * right_bin.default_score
             )
             return launcher
 

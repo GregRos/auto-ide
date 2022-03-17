@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.10
 import argparse
 from loguru import logger
 
